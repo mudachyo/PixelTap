@@ -7,6 +7,7 @@
 
 ---
 # Как запустить
+# [Посмотреть видео инструкцию](https://www.youtube.com/watch?v=FgyCcPZBmtc)
 ### Telegram Desktop на Windows, Linux and macOS
 1. Загрузите и запустите последнюю версию Telegram Desktop на Windows, Linux или macOS.
 2. Откройте «Настройки» > «Продвинутые настройки» > «Экспериментальные настройки» > «Enable webview inspection».
@@ -137,7 +138,7 @@ autoClick();
 
 ---
 > [!TIP]
-> Other repositories:
+> Другие репозитории:
 > 
 > - [Hamster Kombat + Autoclicker](https://github.com/mudachyo/Hamster-Kombat)
 > 

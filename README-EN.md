@@ -8,6 +8,7 @@
 
 ---
 # How to run
+# [View video instruction](https://www.youtube.com/watch?v=FgyCcPZBmtc)
 ### Telegram Desktop на Windows, Linux and macOS
 1. Download and launch the latest version of Telegram Desktop on **Windows**, **Linux** or **macOS**.
 2. Go to *Settings* > *Advanced* > *Experimental settings* > *Enable webview inspection*.

@@ -94,7 +94,7 @@ function clickElement(target) {
 }
 
 function clickRandomCard() {
-    const cards = document.querySelectorAll('._card_10jfg_1:not(._active_10jfg_16)');
+    const cards = document.querySelectorAll('._card_n90wq_1:not(._active_n90wq_21)');
     if (cards.length > 0) {
         const randomCard = cards[Math.floor(Math.random() * cards.length)];
         clickElement(randomCard);

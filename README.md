@@ -123,7 +123,7 @@ function autoClick() {
             handleEndGame();
         }
 
-        if (document.querySelectorAll('._card_10jfg_1._active_10jfg_16').length === 0) {
+        if (document.querySelectorAll('._card_n90wq_1._active_n90wq_21').length === 0) {
             clickRandomCard();
         }
     } catch (error) {

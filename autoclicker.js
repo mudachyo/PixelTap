@@ -1,19 +1,19 @@
 const styles = {
     success: 'background: #28a745; color: #ffffff; font-weight: bold; padding: 4px 8px; border-radius: 4px;',
-	starting: 'background: #8640ff; color: #ffffff; font-weight: bold; padding: 4px 8px; border-radius: 4px;',
+    starting: 'background: #8640ff; color: #ffffff; font-weight: bold; padding: 4px 8px; border-radius: 4px;',
     error: 'background: #dc3545; color: #ffffff; font-weight: bold; padding: 4px 8px; border-radius: 4px;',
     info: 'background: #007bff; color: #ffffff; font-weight: bold; padding: 4px 8px; border-radius: 4px;'
 };
-const logPrefix = '%c [PixelTapBot] ';
+const logPrefix = '%c[PixelTapBot] ';
 
 const originalLog = console.log;
 console.log = function () {
-    if (arguments[0].includes('[PixelTapBot]')) {
+    if (typeof arguments[0] === 'string' && arguments[0].includes('[PixelTapBot]')) {
         originalLog.apply(console, arguments);
     }
 };
 
-console.error = console.warn = console.info = console.debug = function () { };
+console.error = console.warn = console.info = console.debug = () => { };
 
 console.clear();
 console.log(`${logPrefix}Starting`, styles.starting);
@@ -25,7 +25,6 @@ function createEvent(type, target, options) {
         cancelable: true,
         view: window,
         detail: 1,
-        ...options,
         pointerId: 1,
         width: 1,
         height: 1,
@@ -33,18 +32,21 @@ function createEvent(type, target, options) {
         tiltX: 0,
         tiltY: 0,
         pointerType: 'touch',
-        isPrimary: true
+        isPrimary: true,
+        ...options
     });
     target.dispatchEvent(event);
 }
 
 function getCoords(element) {
     const rect = element.getBoundingClientRect();
+    const x = rect.left + rect.width / 2;
+    const y = rect.top + rect.height / 2;
     return {
-        clientX: rect.left + rect.width / 2,
-        clientY: rect.top + rect.height / 2,
-        screenX: window.screenX + rect.left + rect.width / 2,
-        screenY: window.screenY + rect.top + rect.height / 2
+        clientX: x,
+        clientY: y,
+        screenX: window.screenX + x,
+        screenY: window.screenY + y
     };
 }
 
@@ -53,27 +55,21 @@ const randomOffset = range => Math.floor(Math.random() * (2 * range + 1)) - rang
 const randomPressure = () => Math.random() * 0.5 + 0.5;
 
 function clickElement(target) {
-    const coords = getCoords(target);
-    const offsetX = randomOffset(10);
-    const offsetY = randomOffset(10);
-    const randomCoords = {
-        clientX: coords.clientX + offsetX,
-        clientY: coords.clientY + offsetY,
-        screenX: coords.screenX + offsetX,
-        screenY: coords.screenY + offsetY,
+    const { clientX, clientY, screenX, screenY } = getCoords(target);
+    const options = {
+        clientX: clientX + randomOffset(10),
+        clientY: clientY + randomOffset(10),
+        screenX: screenX + randomOffset(10),
+        screenY: screenY + randomOffset(10),
         pressure: randomPressure()
     };
-
-    ['pointerdown', 'mousedown', 'pointerup', 'mouseup', 'click'].forEach(type => 
-        createEvent(type, target, randomCoords)
-    );
+    ['pointerdown', 'mousedown', 'pointerup', 'mouseup', 'click'].forEach(type => createEvent(type, target, options));
 }
 
 function clickRandomCard() {
     const cards = document.querySelectorAll('._card_n90wq_1:not(._active_n90wq_21)');
-    if (cards.length > 0) {
-        const randomCard = cards[Math.floor(Math.random() * cards.length)];
-        clickElement(randomCard);
+    if (cards.length) {
+        clickElement(cards[Math.floor(Math.random() * cards.length)]);
         console.log(`${logPrefix}Clicked on a random card`, styles.info);
     }
 }
@@ -88,26 +84,50 @@ function handleEndGame() {
     }
 }
 
-function autoClick() {
-    try {
-        const targetArea = document.querySelector('.clickableArea');
-        if (targetArea) {
-            clickElement(targetArea);
-            if (window.Telegram && Telegram.WebView && typeof Telegram.WebView.postEvent === 'function') {
-                Telegram.WebView.postEvent('web_app_trigger_haptic_feedback', { type: 'impact', impact_style: 'medium' });
-            }
-        } else {
-            handleEndGame();
-        }
+let isGamePaused = false;
 
-        if (document.querySelectorAll('._card_n90wq_1._active_n90wq_21').length === 0) {
-            clickRandomCard();
-        }
-    } catch (error) {
-        // Do not log the error to avoid cluttering the console
-    } finally {
-        setTimeout(autoClick, randomDelay(30, 170));
-    }
+function toggleGamePause() {
+    isGamePaused = !isGamePaused;
+    pauseButton.textContent = isGamePaused ? 'Resume' : 'Pause';
 }
+
+function autoClick() {
+    if (!isGamePaused) {
+        try {
+            const targetArea = document.querySelector('.clickableArea');
+            if (targetArea) {
+                clickElement(targetArea);
+                if (window.Telegram?.WebView?.postEvent) {
+                    Telegram.WebView.postEvent('web_app_trigger_haptic_feedback', { type: 'impact', impact_style: 'medium' });
+                }
+            } else {
+                handleEndGame();
+            }
+            if (!document.querySelectorAll('._card_n90wq_1._active_n90wq_21').length) {
+                clickRandomCard();
+            }
+        } catch (error) {
+            // Do not log the error to avoid cluttering the console
+        }
+    }
+    setTimeout(autoClick, randomDelay(20, 150));
+}
+
+const pauseButton = document.createElement('button');
+pauseButton.textContent = 'Pause';
+Object.assign(pauseButton.style, {
+    position: 'fixed',
+    bottom: '20px',
+    right: '20px',
+    zIndex: '9999',
+    padding: '4px 8px',
+    backgroundColor: '#5d5abd',
+    color: 'white',
+    border: 'none',
+    borderRadius: '10px',
+    cursor: 'pointer'
+});
+pauseButton.onclick = toggleGamePause;
+document.body.appendChild(pauseButton);
 
 autoClick();

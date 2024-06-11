@@ -168,7 +168,7 @@ autoClick();
 >
 > - [PixelTap + Autoclicker](https://github.com/mudachyo/PixelTap)
 > 
-> - [MemeFi](https://github.com/mudachyo/MemeFi-Coin)
+> - [MemeFi + Autoclicker](https://github.com/mudachyo/MemeFi-Coin)
 ---
 > [!IMPORTANT] 
 > Donation

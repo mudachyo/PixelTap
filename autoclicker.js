@@ -67,7 +67,7 @@ function clickElement(target) {
 }
 
 function clickRandomCard() {
-    const cards = document.querySelectorAll('._card_n90wq_1:not(._active_n90wq_21)');
+    const cards = document.querySelectorAll('._card_1ymyk_1:not(._active_1ymyk_21)');
     if (cards.length) {
         clickElement(cards[Math.floor(Math.random() * cards.length)]);
         console.log(`${logPrefix}Clicked on a random card`, styles.info);
@@ -77,7 +77,7 @@ function clickRandomCard() {
 function handleEndGame() {
     const endGameElement = document.querySelector('#root > div > div > div:nth-child(1) > div > div > h3');
     if (endGameElement) {
-        const restartBtn = document.querySelector('#root > div > div > div:nth-child(1) > div > div > div._footerCard_bgfdy_87 > div._buttons_bgfdy_124 > button._button_uyw8r_1._purple_uyw8r_31._textUppercase_uyw8r_28');
+        const restartBtn = document.querySelector('#root button._button_fe4eh_1._purple_fe4eh_31._textUppercase_fe4eh_28');
         const gameResult = document.querySelector('#root > div > div > div:nth-child(1) > div > div > div._footerCard_bgfdy_87 > div._reward_bgfdy_17 > span').innerText;
         console.log(`${logPrefix}${gameResult.includes('-') ? 'Defeat' : 'Victory'} (${gameResult})`, gameResult.includes('-') ? styles.error : styles.success);
         restartBtn.click();
@@ -103,7 +103,7 @@ function autoClick() {
             } else {
                 handleEndGame();
             }
-            if (!document.querySelectorAll('._card_n90wq_1._active_n90wq_21').length) {
+            if (!document.querySelectorAll('._card_1ymyk_1._active_1ymyk_21').length) {
                 clickRandomCard();
             }
         } catch (error) {

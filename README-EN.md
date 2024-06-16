@@ -148,7 +148,7 @@ function autoClick() {
             // Do not log the error to avoid cluttering the console
         }
     }
-    setTimeout(autoClick, randomDelay(10, 120));
+    setTimeout(autoClick, randomDelay(20, 110));
 }
 
 const pauseButton = document.createElement('button');

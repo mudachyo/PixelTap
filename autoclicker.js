@@ -50,17 +50,17 @@ function getCoords(element) {
     };
 }
 
-const randomDelay = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
-const randomOffset = range => Math.floor(Math.random() * (2 * range + 1)) - range;
+const randomDelay = (min, max) => Math.random() * (max - min) + min;
+const randomOffset = range => Math.random() * range * 2 - range;
 const randomPressure = () => Math.random() * 0.5 + 0.5;
 
 function clickElement(target) {
     const { clientX, clientY, screenX, screenY } = getCoords(target);
     const options = {
-        clientX: clientX + randomOffset(10),
-        clientY: clientY + randomOffset(10),
-        screenX: screenX + randomOffset(10),
-        screenY: screenY + randomOffset(10),
+        clientX: clientX + randomOffset(5),
+        clientY: clientY + randomOffset(5),
+        screenX: screenX + randomOffset(5),
+        screenY: screenY + randomOffset(5),
         pressure: randomPressure()
     };
     ['pointerdown', 'mousedown', 'pointerup', 'mouseup', 'click'].forEach(type => createEvent(type, target, options));
@@ -76,10 +76,12 @@ function clickRandomCard() {
 let wins = 0;
 let losses = 0;
 let totalPoints = 0;
+let gameEnded = false;
 
 function handleEndGame() {
     const endGameElement = document.querySelector('#root > div > div > div:nth-child(1) > div > div > h3');
-    if (endGameElement) {
+    if (endGameElement && !gameEnded) {
+        gameEnded = true;
         const restartBtn = document.querySelector('#root button._button_fe4eh_1._purple_fe4eh_31._textUppercase_fe4eh_28');
         const gameResult = document.querySelector('#root > div > div > div:nth-child(1) > div > div > div._footerCard_bgfdy_87 > div._reward_bgfdy_17 > span').innerText;
         const points = parseInt(gameResult.replace(/[^0-9]/g, ''), 10);
@@ -94,7 +96,11 @@ function handleEndGame() {
 
         console.log(`${logPrefix}${gameResult.includes('-') ? 'Defeat' : 'Victory'} (${gameResult})`, gameResult.includes('-') ? styles.error : styles.success);
         console.log(`${logPrefix}Stats: Wins: ${wins} | Losses: ${losses} | Total Points: ${totalPoints}`, styles.info);
-        restartBtn.click();
+
+        setTimeout(() => {
+            gameEnded = false;
+            restartBtn.click();
+        }, randomDelay(1000, 3000));
     }
 }
 
@@ -124,7 +130,7 @@ function autoClick() {
             // Do not log the error to avoid cluttering the console
         }
     }
-    setTimeout(autoClick, randomDelay(20, 110));
+    setTimeout(autoClick, randomDelay(20, 150));
 }
 
 const pauseButton = document.createElement('button');

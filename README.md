@@ -44,7 +44,7 @@ console.log(`${logPrefix}Create by t.me/mudachyo`, styles.starting);
 const randomDelay = (min, max) => Math.random() * (max - min) + min;
 const randomOffset = range => Math.random() * range * 2 - range;
 const randomPressure = () => Math.random() * 0.5 + 0.5;
-let wins = 0, losses = 0, totalPoints = 0, abandoned = 0, gameEnded = false, enemyLeftFight = false, isGamePaused = false;
+let wins = 0, losses = 0, totalPoints = 0, abandoned = 0, gameEnded = false, enemyLeftFight = false, isGamePaused = false, isClicking = false;
 
 function createEvent(type, target, options) {
     target.dispatchEvent(new PointerEvent(type, {
@@ -62,7 +62,7 @@ function getCoords(element) {
 function clickElement(target) {
     if (isGamePaused) return;
     const { clientX, clientY, screenX, screenY } = getCoords(target);
-    const options = { clientX: clientX + randomOffset(5), clientY: clientY + randomOffset(5), screenX: screenX + randomOffset(5), screenY: screenY + randomOffset(5), pressure: randomPressure() };
+    const options = { clientX: clientX + randomOffset(10), clientY: clientY + randomOffset(10), screenX: screenX + randomOffset(10), screenY: screenY + randomOffset(10), pressure: randomPressure() };
     ['pointerdown', 'mousedown', 'pointerup', 'mouseup', 'click'].forEach(type => createEvent(type, target, options));
 }
 
@@ -77,7 +77,6 @@ function handleEndGame() {
     const endGameElement = document.querySelector('#root > div > div > div:nth-child(1) > div > div > h3');
     if (endGameElement && !gameEnded) {
         gameEnded = true;
-        enemyLeftFight = false;
         const restartBtn = document.querySelector('button._button_fe4eh_1._purple_fe4eh_31._textUppercase_fe4eh_28 span');
         const gameResult = document.querySelector('div._footerCard_1j4fp_90 > div._reward_1j4fp_20 > span').innerText;
         const points = parseInt(gameResult.replace(/[^0-9]/g, ''), 10);
@@ -92,14 +91,16 @@ function handleEndGame() {
 }
 
 function clickAfterClose() {
-    if (isGamePaused) return;
+    if (isGamePaused || isClicking) return;
+    enemyLeftFight = false;
     const targetButton = document.querySelector('button._button_fe4eh_1._purple_fe4eh_31._outlined_fe4eh_65._textUppercase_fe4eh_28');
-    if (targetButton && !enemyLeftFight) {
+    if (targetButton) {
+        isClicking = true;
         clickElement(targetButton);
         console.originalLog(`${logPrefix}The enemy has left the fight`, styles.left);
         abandoned++;
         console.originalLog(`${logPrefix}Stats: Wins: ${wins} | Losses: ${losses} | Abandoned: ${abandoned} | Total Points: ${totalPoints}`, styles.info);
-        enemyLeftFight = true;
+        setTimeout(() => { isClicking = false; }, randomDelay(1000, 3000));
     }
 }
 
@@ -117,9 +118,10 @@ function closeModal() {
 
 function clickUntilGone() {
     const targetButton = document.querySelector('button._button_fe4eh_1._purple_fe4eh_31._outlined_fe4eh_65._textUppercase_fe4eh_28');
-    if (targetButton) {
+    if (targetButton && !isClicking) {
+        isClicking = true;
         clickElement(targetButton);
-        setTimeout(clickUntilGone, randomDelay(1000, 3000));
+        setTimeout(() => { isClicking = false; clickUntilGone(); }, randomDelay(1000, 3000));
     }
 }
 
@@ -145,7 +147,7 @@ function autoClick() {
             }
         } catch (error) { }
     }
-    setTimeout(autoClick, randomDelay(20, 150));
+    setTimeout(autoClick, randomDelay(60, 150));
 }
 
 const pauseButton = document.createElement('button');

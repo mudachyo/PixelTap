@@ -1,3 +1,16 @@
+// ==UserScript==
+// @grant        none
+// @version      1.0
+// @author       mudachyo
+// @name         PixelTap Autoclicker
+// @description  21.06.2024, 21:31:29
+// @match        *://sexyzbot.pxlvrs.io/*
+// @homepage     https://github.com/mudachyo/PixelTap
+// @icon         https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZ8fIh36hOYyMEv7XiDsX0EMOP2MC18Trptg&s
+// @downloadURL  https://github.com/mudachyo/PixelTap/raw/main/pixeltap-autoclicker.user.js
+// @updateURL    https://github.com/mudachyo/PixelTap/raw/main/pixeltap-autoclicker.user.js
+// ==/UserScript==
+
 const styles = {
     success: 'background: #28a745; color: #fff; font-weight: bold; padding: 4px 8px; border-radius: 4px;',
     starting: 'background: #8640ff; color: #fff; font-weight: bold; padding: 4px 8px; border-radius: 4px;',

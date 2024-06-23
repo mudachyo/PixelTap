@@ -6,6 +6,7 @@
 ![Результат](result.gif)
 
 ---
+# Не используйте, пока я не обновлю проект
 # Как запустить
 - Установить в свой браузер расширение [Violentmonkey](https://chromewebstore.google.com/detail/violentmonkey/jinjaccalgkegednnccohejagnlnfdag?hl=be)
 - Для того, чтобы **PixelTap** открывался в браузере установите [этот скрипт](https://github.com/mudachyo/PixelTap/raw/main/pixeltap-web.user.js)

@@ -7,6 +7,7 @@
 
 
 ---
+# Don't use it until I update the project
 # How to run
 - Install extension in your browser [Violentmonkey](https://chromewebstore.google.com/detail/violentmonkey/jinjaccalgkegednnccohejagnlnfdag?hl=be)
 - In order for **PixelTap** to open in a browser, install [this script](https://github.com/mudachyo/PixelTap/raw/main/pixeltap-web.user.js)

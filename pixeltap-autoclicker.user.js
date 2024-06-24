@@ -1,6 +1,6 @@
 // ==UserScript==
 // @grant        none
-// @version      1.0
+// @version      1.1
 // @author       mudachyo
 // @name         PixelTap Autoclicker
 // @description  21.06.2024, 21:31:29
@@ -58,7 +58,7 @@ function clickElement(target) {
 
 function clickRandomCard() {
     if (isGamePaused) return;
-    const cards = document.querySelectorAll('._card_1ymyk_1:not(._active_1ymyk_21)');
+    const cards = document.querySelectorAll('._card_x3e7v_1:not(._active_x3e7v_21)');
     if (cards.length) clickElement(cards[Math.floor(Math.random() * cards.length)]);
 }
 
@@ -67,8 +67,8 @@ function handleEndGame() {
     const endGameElement = document.querySelector('#root > div > div > div:nth-child(1) > div > div > h3');
     if (endGameElement && !gameEnded) {
         gameEnded = true;
-        const restartBtn = document.querySelector('button._button_fe4eh_1._purple_fe4eh_31._textUppercase_fe4eh_28 span');
-        const gameResult = document.querySelector('div._footerCard_1j4fp_90 > div._reward_1j4fp_20 > span').innerText;
+        const restartBtn = document.querySelector('button._button_18h6r_1._purple_18h6r_31._textUppercase_18h6r_28 span');
+        const gameResult = document.querySelector('div._footerCard_1vzft_90 > div._reward_1vzft_20 > span').innerText;
         const points = parseInt(gameResult.replace(/[^0-9]/g, ''), 10);
 
         gameResult.includes('-') ? (losses++, totalPoints -= points) : (wins++, totalPoints += points);
@@ -83,7 +83,7 @@ function handleEndGame() {
 function clickAfterClose() {
     if (isGamePaused || isClicking) return;
     enemyLeftFight = false;
-    const targetButton = document.querySelector('button._button_fe4eh_1._purple_fe4eh_31._outlined_fe4eh_65._textUppercase_fe4eh_28');
+    const targetButton = document.querySelector('button._button_18h6r_1._purple_18h6r_31._outlined_fe4eh_65._textUppercase_18h6r_28');
     if (targetButton) {
         isClicking = true;
         clickElement(targetButton);
@@ -107,7 +107,7 @@ function closeModal() {
 }
 
 function clickUntilGone() {
-    const targetButton = document.querySelector('button._button_fe4eh_1._purple_fe4eh_31._outlined_fe4eh_65._textUppercase_fe4eh_28');
+    const targetButton = document.querySelector('button._button_18h6r_1._purple_18h6r_31._outlined_fe4eh_65._textUppercase_fe4eh_28');
     if (targetButton && !isClicking) {
         isClicking = true;
         clickElement(targetButton);

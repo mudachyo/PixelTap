@@ -1,6 +1,6 @@
 // ==UserScript==
 // @grant        none
-// @version      1.1
+// @version      1.2
 // @author       mudachyo
 // @name         PixelTap Autoclicker
 // @description  21.06.2024, 21:31:29
@@ -29,7 +29,8 @@ console.error = console.warn = console.info = console.debug = () => { };
 
 console.clear();
 console.log(`${logPrefix}Starting`, styles.starting);
-console.log(`${logPrefix}Create by t.me/mudachyo`, styles.starting);
+console.log(`${logPrefix}Create by https://t.me/mudachyo`, styles.starting);
+console.log(`${logPrefix}Telegram Channel https://t.me/shopalenka`, styles.starting);
 
 const randomDelay = (min, max) => Math.random() * (max - min) + min;
 const randomOffset = range => Math.random() * range * 2 - range;
@@ -64,11 +65,11 @@ function clickRandomCard() {
 
 function handleEndGame() {
     if (isGamePaused) return;
-    const endGameElement = document.querySelector('#root > div > div > div:nth-child(1) > div > div > h3');
+    const endGameElement = document.querySelector('div._resultContainer_1ief9_1');
     if (endGameElement && !gameEnded) {
         gameEnded = true;
         const restartBtn = document.querySelector('button._button_18h6r_1._purple_18h6r_31._textUppercase_18h6r_28 span');
-        const gameResult = document.querySelector('div._footerCard_1vzft_90 > div._reward_1vzft_20 > span').innerText;
+        const gameResult = document.querySelector('div._reward_15p38_1 > span').innerText;
         const points = parseInt(gameResult.replace(/[^0-9]/g, ''), 10);
 
         gameResult.includes('-') ? (losses++, totalPoints -= points) : (wins++, totalPoints += points);
@@ -137,7 +138,7 @@ function autoClick() {
             }
         } catch (error) { }
     }
-    setTimeout(autoClick, randomDelay(60, 150));
+    setTimeout(autoClick, randomDelay(40, 120));
 }
 
 const pauseButton = document.createElement('button');

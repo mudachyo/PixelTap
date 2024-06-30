@@ -1,6 +1,6 @@
 // ==UserScript==
 // @grant        none
-// @version      1.2
+// @version      1.3
 // @author       mudachyo
 // @name         PixelTap Autoclicker
 // @description  21.06.2024, 21:31:29
@@ -138,7 +138,7 @@ function autoClick() {
             }
         } catch (error) { }
     }
-    setTimeout(autoClick, randomDelay(40, 120));
+    setTimeout(autoClick, randomDelay(60, 140));
 }
 
 const pauseButton = document.createElement('button');

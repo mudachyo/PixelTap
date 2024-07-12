@@ -1,6 +1,6 @@
 // ==UserScript==
 // @grant        none
-// @version      1.3
+// @version      1.4
 // @author       mudachyo
 // @name         PixelTap Autoclicker
 // @description  21.06.2024, 21:31:29
@@ -68,7 +68,7 @@ function handleEndGame() {
     const endGameElement = document.querySelector('div._resultContainer_1ief9_1');
     if (endGameElement && !gameEnded) {
         gameEnded = true;
-        const restartBtn = document.querySelector('button._button_18h6r_1._purple_18h6r_31._textUppercase_18h6r_28 span');
+        const restartBtn = document.querySelector('button._button_v0pc4_1._purple_v0pc4_31._textUppercase_v0pc4_28 span');
         const gameResult = document.querySelector('div._reward_15p38_1 > span').innerText;
         const points = parseInt(gameResult.replace(/[^0-9]/g, ''), 10);
 

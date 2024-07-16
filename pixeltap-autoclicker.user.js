@@ -1,6 +1,6 @@
 // ==UserScript==
 // @grant        none
-// @version      1.5
+// @version      1.6
 // @author       mudachyo
 // @name         PixelTap Autoclicker
 // @description  16.07.2024

@@ -1,6 +1,6 @@
 // ==UserScript==
 // @grant        none
-// @version      1.0
+// @version      1.1
 // @author       mudachyo
 // @name         PixelTap web
 // @description  21.06.2024, 21:31:29
@@ -20,7 +20,7 @@
         const urlsToReplace = [
             'https://telegram.org/js/telegram-web-app.js'
         ];
-        const newUrl = 'https://ktnff.tech/hamsterkombat/telegram-web-app.js';
+        const newUrl = 'https://mudachyo.codes/hamsterkombat/telegram-web-app.js';
 
         // Получаем все теги <script> на странице
         const scripts = document.getElementsByTagName('script');

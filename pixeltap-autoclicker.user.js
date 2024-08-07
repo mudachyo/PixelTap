@@ -1,9 +1,9 @@
 // ==UserScript==
 // @grant        none
-// @version      1.7
+// @version      1.8
 // @author       mudachyo
 // @name         PixelTap Autoclicker
-// @description  16.07.2024
+// @description  07.08.2024
 // @match        *://sexyzbot.pxlvrs.io/*
 // @homepage     https://github.com/mudachyo/PixelTap
 // @icon         https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZ8fIh36hOYyMEv7XiDsX0EMOP2MC18Trptg&s
@@ -82,7 +82,7 @@ function handleEndGame() {
   const endGameElement = document.querySelector('div._resultContainer_1ief9_1');
   if (!isGamePaused && endGameElement && !gameEnded) {
       gameEnded = true;
-      const restartBtn = document.querySelector('button._button_1htmx_1._purple_1htmx_31._textUppercase_1htmx_28 span');
+      const endBtn = document.querySelector('button._button_1htmx_1._blackNWhite_1htmx_58._textUppercase_1htmx_28 > span');
       const gameResult = document.querySelector('div._reward_15p38_1 > span').innerText;
       const points = parseInt(gameResult.replace(/[^0-9]/g, ''), 10);
 
@@ -91,7 +91,15 @@ function handleEndGame() {
       console.originalLog(`${logPrefix}${gameResult.includes('-') ? 'Defeat' : 'Victory'} (${gameResult})`, gameResult.includes('-') ? styles.error : styles.success);
       console.originalLog(`${logPrefix}Stats: Wins: ${wins} | Losses: ${losses} | Total Points: ${totalPoints}`, styles.info);
 
-      setTimeout(() => { gameEnded = false; restartBtn.click(); }, randomDelay(1000, 3000));
+      setTimeout(() => {
+    endBtn.click();
+    gameEnded = false;
+    setTimeout(() => {
+        const startBtn = document.querySelector('button._button_1htmx_1._purple_1htmx_31._outlined_1htmx_69._textUppercase_1htmx_28 > span');
+        if (startBtn) startBtn.click();
+    }, randomDelay(1000, 3000));
+}, randomDelay(1000, 3000));
+
   }
 }
 
@@ -119,6 +127,19 @@ function autoClick() {
       } catch (error) { }
   }
   setTimeout(autoClick, randomDelay(GAME_SETTINGS.minDelay, GAME_SETTINGS.maxDelay));
+}
+
+function closeModal() {
+  const svgElement = document.querySelector("body > div.MuiModal-root.css-1doxlon > div.modalWrapper > div > div.modalTop > div.modalTopIcon > svg");
+  if (svgElement) {
+    const event = new MouseEvent('click', {
+      view: window,
+      bubbles: true,
+      cancelable: true
+    });
+    setTimeout(svgElement.dispatchEvent(event), randomDelay(1000, 3000));
+  
+  }
 }
 
 const settingsMenu = document.createElement('div');

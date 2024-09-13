@@ -33,9 +33,19 @@
 >
 > - [Сrossfi + Autoclicker](https://github.com/mudachyo/Crossfi)
 >
-> - [BUMP](https://github.com/mudachyo/BUMP)
+> - [BUMP + Autoclicker](https://github.com/mudachyo/BUMP)
 >
-> - [W-Coin](https://github.com/mudachyo/W-Coin)
+> - [W-Coin + Autoclicker](https://github.com/mudachyo/W-Coin)
+>
+> - [1win + Autoclicker](https://github.com/mudachyo/1win-Token)
+>
+> - [Not Pixel + Autoclicker](https://github.com/mudachyo/Not-Pixel)
+>
+> - [X-Empire + Autoclicker](https://github.com/mudachyo/X-Empire)
+>
+> - [Tomarket](https://github.com/mudachyo/Tomarket)
+>
+> - [xKuCoin + Autoclicker](https://github.com/mudachyo/xKuCoin)
 ---
 > [!IMPORTANT] 
 > Donation
